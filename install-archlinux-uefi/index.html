@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="SpaceXI">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="在uefi+gpt磁盘上安装Archlinux">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="SpaceXI">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://spacexi.github.com">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>SpaceXI</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">在uefi+gpt磁盘上安装Archlinux</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  主页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  存档
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By SpaceXI</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-11-22</span>
+            <span class="time">21:42:26</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/archlinux/">archlinux</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/archlinux/">#archlinux</a> <a class="tag" href="/tags/uefi/">#uefi</a> <a class="tag" href="/tags/gpt/">#gpt</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>摘要：在使用uefi引导的小米Air12.5英寸笔记本上安装Archlinux并作为本机的唯一操作系统。</p>
+<a id="more"></a>
+<h3 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1 准备工作"></a>1 准备工作</h3><p>首先你要获得一个Archlinux的iso文件，这个文件可以从<a href="https://www.archlinux.org/download/" target="_blank" rel="noopener">Archlinux官方网站</a>下载，也可以从<a href="https://mirrors.tuna.tsinghua.edu.cn/" target="_blank" rel="noopener">清华大学开源镜像站</a>或者<a href="http://mirrors.ustc.edu.cn/" target="_blank" rel="noopener">中科大开源镜像站</a>下载。需要注意的是，ArchLinux是一个滚动更新的发行版，这意味着如果你的iso是很久之前下载的那么安装会变得毫无意义，所以请一定现用现下！</p>
+<p>其次你需要一个U盘来承载安装文件，当然如果你使用光盘来引导也可以。你还需要一个能够运行windows、linux或者macOS的计算机来制作引导U盘，你可以将这个盘视为windows下的PE。</p>
+<p>此外，你还需要一个速度较快的无线或者有限网络链接。注意，如果你的网络链接需要从浏览器登录账号密码才能连接外网（如多数校园网）请提前使用路由器或其他设备登录网络。Archlinux的引导盘是完全命令行操作的！</p>
+<h3 id="2-制作Archlinux引导U盘"><a href="#2-制作Archlinux引导U盘" class="headerlink" title="2 制作Archlinux引导U盘"></a>2 制作Archlinux引导U盘</h3><h5 id="2-1-如果你有一台能使用的windows电脑："><a href="#2-1-如果你有一台能使用的windows电脑：" class="headerlink" title="2.1 如果你有一台能使用的windows电脑："></a>2.1 如果你有一台能使用的windows电脑：</h5><p>下载并安装ultraiso软件（软碟通），试用版即可。使用软碟通打开Archlinux的iso文件（注意，windows7、10用户需要右键以管理员权限来启动软碟通）</p>
+<p>插入盘并格式化为Fat32格式。在软碟通中选择<b>启动</b>菜单中的<b>写入硬盘映像</b>，写入方式为<b>RAW</b>。写入并等待完成即可。</p>
+<h5 id="2-2-如果你有一台能使用的macOS-linux电脑："><a href="#2-2-如果你有一台能使用的macOS-linux电脑：" class="headerlink" title="2.2 如果你有一台能使用的macOS/linux电脑："></a>2.2 如果你有一台能使用的macOS/linux电脑：</h5><p>首先在终端中查看U盘路径，连上U盘，确认能访问之后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">dev             1.9G     0  1.9G   0% /dev</span><br><span class="line">run             1.9G  920K  1.9G   1% /run</span><br><span class="line">/dev/sda3       113G   17G   91G  16% /</span><br><span class="line">tmpfs           1.9G   28M  1.9G   2% /dev/shm</span><br><span class="line">tmpfs           1.9G     0  1.9G   0% /sys/fs/cgroup</span><br><span class="line">tmpfs           1.9G   88K  1.9G   1% /tmp</span><br><span class="line">/dev/sda1       487M  132K  486M   1% /boot/efi</span><br><span class="line">tmpfs           383M   16K  383M   1% /run/user/1000</span><br><span class="line">/dev/sdb1        29G  9.7G   20G  34% /run/media/spacexi/data</span><br></pre></td></tr></table></figure>
+<p>可以从容量上判断U盘前面对应的Filesystem路径，比如上述U盘是/dev/sdb1</p>
+<p>然后我们卸载当前U盘</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo umount /dev/sdb #注意是sdb不是sdb1，根据你的实际路径自行修改</span><br></pre></td></tr></table></figure>
+<p>将archlinux的iso文件写入U盘</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dd if=archlinuxiso的路径 of=/dev/sdb</span><br></pre></td></tr></table></figure>
+<p>等待写入完成即可。</p>
+<h3 id="3-硬盘分区"><a href="#3-硬盘分区" class="headerlink" title="3 硬盘分区"></a>3 硬盘分区</h3><p>从U盘引导启动电脑，默认进入登录窗口，输入root完成登录。</p>
+<p>查看当前硬盘：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l</span><br><span class="line">Disk /dev/sda: 119.2 GiB, 128035676160 bytes, 250069680 sectors</span><br><span class="line">Disk model: SAMSUNG MZNLN128</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel type: gpt</span><br><span class="line">Disk identifier: 38658ACF-D87B-4718-912E-94926E779F62</span><br><span class="line"></span><br><span class="line">Device       Start       End   Sectors  Size Type</span><br><span class="line">/dev/sda1     2048    999423    997376  487M EFI System</span><br><span class="line">/dev/sda2   999424   9000959   8001536  3.8G Linux filesystem</span><br><span class="line">/dev/sda3  9000960 250066943 241065984  115G Linux filesystem</span><br></pre></td></tr></table></figure>
+<p>可以看到我的主硬盘是sda，那么我们就要对sda硬盘进行分区操作了。分区工具有很多，可以使用fdisk本身，也可以使用parted，这里我们使用parted：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parted /dev/sda</span><br></pre></td></tr></table></figure>
+<p>分区之前我们先清空整个硬盘并新建一个gpt分区表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(parted)mklabel gpt #(parted)说明已经进入parted内，前缀不需要你打进去</span><br></pre></td></tr></table></figure>
+<p>这里说明一下，使用uefi引导的操作系统一定需要一个efi分区，对于linux来说本身还需要一个/分区作为挂载点。所以最简单的方式我们需要一个大概300m的efi分区和一个/，如果你需要休眠或者内存比较小的话还需要一个swap分区。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(parted)mkpart primary 2048s 512M #创建一个小分区当efi使用</span><br><span class="line">(parted)mkpart primary 512 4608M #创建一个4G分区当swap使用</span><br><span class="line">(parted)mkpart primary 4608M -1 #剩余全部空间当做/分区使用</span><br><span class="line">(parted)set 1 boot on #将分区1设定为可启动</span><br><span class="line">(parted)q #退出</span><br></pre></td></tr></table></figure>
+<p>回到bash，可以使用<code>lsblk -l</code>来查看分区是不是和想要的一样，然后就可以格式化分区了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkfs.vfat -F32 /dev/sda1 #格式化efi分区为fat32格式</span><br><span class="line">mkswap /dev/sda2 #设置swap分区</span><br><span class="line">mkfs.ext4 /dev/sda3 #格式化/分区为ext4格式</span><br></pre></td></tr></table></figure>
+<p>到此，分区完成，可以准备安装操作系统了。</p>
+<h3 id="4-安装Archlinux基本系统"><a href="#4-安装Archlinux基本系统" class="headerlink" title="4 安装Archlinux基本系统"></a>4 安装Archlinux基本系统</h3><p>其实linux系统的安装更接近于拷贝，所以第一步我们需要挂载分区：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sda3 /mnt #挂载sda3到/mnt，sda3是以后的/</span><br><span class="line">cd /mnt</span><br><span class="line">mkdir -v boot usr var home</span><br><span class="line">cd boot</span><br><span class="line">mkdir efi</span><br><span class="line">mount /dev/sda1 /mnt/boot/efi</span><br></pre></td></tr></table></figure>
+<p>如果你使用有线网络，那么arch会启动联网，如果使用无线网络你需要先连上wifi才能进行下一步：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wifi-menu</span><br></pre></td></tr></table></figure>
+<p>在进行安装之前我们先要把软件源定位到国内：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/pacman.d/mirrorlist</span><br></pre></td></tr></table></figure>
+<p>建议将清华或者中科大的源站粘贴出来放到最上面，快捷键Ctrl+K=剪切，Ctrl+o=写入，Ctrl+q=退出。</p>
+<p>下面让我们开始安装基本系统吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacstrap -i /mnt base base-devel</span><br></pre></td></tr></table></figure>
+<p>等待安装完成后我们还需要更新一个fstab，fstab就是告诉linux系统你的每个分区都挂载在哪个位置的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">genfstab -U -p /mnt &gt;&gt; /mnt/etc/fstab</span><br></pre></td></tr></table></figure>
+<p>好了，基本系统安装完成了。不过现在这个系统还不能启动，我们还需要对系统进行进一步的设置。</p>
+<h3 id="5-配置你的Arch"><a href="#5-配置你的Arch" class="headerlink" title="5 配置你的Arch"></a>5 配置你的Arch</h3><p>Linux的好处是不需要启动当前系统也能进行配置，主要通过chroot来完成。首先我们要chroot进入硬盘的系统：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chroot /mnt</span><br></pre></td></tr></table></figure>
+<p>然后就开始配置啦，先是语言，这个语言指的是字符编码，删掉/etc/locale.gen中你想要的语言前面的#，比如zh-CN.UTF-8。后面的UTF-8是字符编码的意思，推荐这几个en_US.UTF-8，zh_CN.UTF-8，zh_CN.GBK，zh_TW的编码你看着办吧。命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/locale.gen</span><br></pre></td></tr></table></figure>
+<p>然后重建语言编码表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locale-gen</span><br></pre></td></tr></table></figure>
+<p>下面配置时间：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ln -S /usr/share/zoneinfo/Asia/Shanghai /etc/localtime #设置时间为中国标准时间</span><br><span class="line">hwclock --localtime  #同步本地时钟</span><br></pre></td></tr></table></figure>
+<p>设置你的主机名，类似windows中的计算机名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo 主机名 &gt; /etc/hostname</span><br></pre></td></tr></table></figure>
+<p>设置显示语言，在能启动桌面前强烈建议英文环境以避免不必要的麻烦</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo LANG=en_US.UTF-8 &gt; /etc/locale.conf</span><br></pre></td></tr></table></figure>
+<p>更新pacman包管理器，没这货的话你装不了软件的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -Syu</span><br></pre></td></tr></table></figure>
+<p>然后装几个重要软件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -S dialog wpa_supplicant #没它你重启就连不上wifi啦</span><br><span class="line">pacman -S grub efibootmgr os-prober #用来引导双系统，如果只用linux单一系统可以不考虑</span><br></pre></td></tr></table></figure>
+<p>最后准备处理引导吧：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grub-install --efi-directory=/boot/efi --bootloader-id=grub</span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
+<p>顺带记得添加一个非root用户：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useradd -m -g users -G wheel -s /bin/bash 用户名</span><br><span class="line">passwd #给root设置密码</span><br><span class="line">passwd 用户名 #给刚刚添加的用户设置密码</span><br></pre></td></tr></table></figure>
+<p>让我们重启吧，记得拔掉U盘</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<h3 id="6-第一次进入Arch"><a href="#6-第一次进入Arch" class="headerlink" title="6 第一次进入Arch"></a>6 第一次进入Arch</h3><p>重启后进入的还是和之前一样的字符界面，为了方便建议继续使用root登录，不过这时候已经不需要U盘啦。让我们把Arch完善起来吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wifi-menu #联网不解释</span><br><span class="line">pacman -Syu #更新一下pacman</span><br><span class="line">pacman -S xf86-video-intel #安装intel集成显卡驱动，非intel显卡不要装</span><br><span class="line">pacman -S pacman -S xf86-video-amdgpu #安装AMD集成显卡驱动，非AMD显卡不要装</span><br><span class="line">pacman -S xf86-input-synaptics #触控板驱动</span><br><span class="line">pacman -S xorg xorg-xinit xterm #xorg服务，没它就启动不了图形界面</span><br></pre></td></tr></table></figure>
+<p>关于显卡驱动，你还可以用如下方式确定显卡驱动包的名字：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># lspci | grep VGA    # 确定显卡型号</span><br><span class="line"># pacman -S &lt;驱动包&gt;</span><br><span class="line">#</span><br><span class="line"># # 官方仓库提供的驱动包：</span><br><span class="line"># # +----------------------+--------------------+--------------+</span><br><span class="line"># # |                      |        开源        |     私有     |</span><br><span class="line"># # +----------------------+--------------------+--------------+</span><br><span class="line"># # |         通用         |   xf86-video-vesa  |              |</span><br><span class="line"># # +----------------------+--------------------+--------------+</span><br><span class="line"># # |         Intel        |  xf86-video-intel  |              |</span><br><span class="line"># # +--------+-------------+--------------------+--------------+</span><br><span class="line"># # |        | GeForce 9+  |                    |    nvidia    |</span><br><span class="line"># # +        +-------------+                    +--------------+</span><br><span class="line"># # | nVidia | GeForce 8/9 | xf86-video-nouveau | nvidia-340xx |</span><br><span class="line"># # +        +-------------+                    +--------------+</span><br><span class="line"># # |        | GeForce 6/7 |                    | nvidia-304xx |</span><br><span class="line"># # +--------+-------------+--------------------+--------------+</span><br><span class="line"># # |        AMD/ATI       |   xf86-video-ati   |              |</span><br><span class="line"># # +----------------------+--------------------+--------------</span><br></pre></td></tr></table></figure>
+<p>下面安装桌面环境：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -S xfce4 xfce4-goodies #使用xfce4桌面环境，当然你也可以用别的</span><br><span class="line">pacman -S lightdm lightdm-gtk-greeter #安装lightdm登录器</span><br></pre></td></tr></table></figure>
+<p>测试登录器能否正常启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start lightdm.service</span><br></pre></td></tr></table></figure>
+<p>如果能启动别登录，点关机按钮注销掉，或者直接重启也行。下面让我们把登录器加入自动启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable lightdm.service</span><br></pre></td></tr></table></figure>
+<p>顺带安装一下声音：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S alsa-utils</span><br></pre></td></tr></table></figure>
+<p>注意，检查一下是否有问题，这里经常出问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /lib/systemd/system/alsa-state.service</span><br></pre></td></tr></table></figure>
+<p>查看是否有如下字段，没有就加上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>启动服务并设定为自启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start alsa-state.service</span><br><span class="line">systemctl enable alsa-state.service</span><br></pre></td></tr></table></figure>
+<p>重启前推荐先搞定汉化问题和权限问题，省的重启都是小方块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -S wqy-microhei ttf-dejavu #安装中文字体</span><br><span class="line">pacman -S sudo</span><br><span class="line">nano /etc/sudoers</span><br></pre></td></tr></table></figure>
+<p>修改内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root    ALL=(ALL)       ALL</span><br><span class="line">#新加入一行</span><br><span class="line">你的用户名    ALL=(ALL)       ALL</span><br></pre></td></tr></table></figure></p>
+<p><code>exit</code>注销root登录，重新用之前创建的用户登录，从现在起root就被打入冷宫了，我们继续刚才没完成的汉化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ~/.xprofile</span><br></pre></td></tr></table></figure>
+<p>添加如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export LANG=zh_CN.UTF-8</span><br><span class="line">export LANGUAGE=zh_CN:en_US</span><br></pre></td></tr></table></figure>
+<p>重启即可进入xfce4桌面环境了，当然这是一个非常基础的桌面环境。下一篇文章我们讲进一步配置这个桌面环境。</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
