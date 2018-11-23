@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="SpaceXI">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="Archlinux安装xfce4后的设置与美化">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="SpaceXI">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://spacexi.github.com">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>SpaceXI</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">Archlinux安装xfce4后的设置与美化</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  主页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  存档
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By SpaceXI</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-11-22</span>
+            <span class="time">00:58:59</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/archlinux/">archlinux</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/archlinux/">#archlinux</a> <a class="tag" href="/tags/xfce/">#xfce</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>摘要：Archlinux安装xfce4桌面环境后还很不适用于日常使用，因此进行必要的美化和设置是必须的。本文主要介绍一套基于日常使用的设置与美化过程，包括必要的软件。</p>
+<a id="more"></a>
+<p>上一篇文章中我们介绍了如何在uefi+gpt平台上安装archlinux，详见<a href="https://spacexi.github.io/install-archlinux-uefi/" target="_blank" rel="noopener">在uefi+gpt磁盘上安装Archlinux</a>。这次我们在上一次的基础上进行进一步的设置。</p>
+<p>先上一个效果图吧：</p>
+<p><img src="/xfce4-on-arch/1.png" alt=""></p>
+<h3 id="1-中文输入法和浏览器"><a href="#1-中文输入法和浏览器" class="headerlink" title="1 中文输入法和浏览器"></a>1 中文输入法和浏览器</h3><p>桌面环境装好后第一步就是要把中文输入法和浏览器装好，这样才能去百度教程是不，arch下推荐使用的浏览器是Google Chromium，这是Google Chrome的开源版，强烈推荐：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S chromium</span><br></pre></td></tr></table></figure>
+<p>注意由于不再是root登录，所以需要使用sudo来临时获得root权限才能调用pacman来安装应用。</p>
+<p>对于中文输入法，解决方案就比较麻烦了。虽然搜狗输入法已经有linux版，但要安装到arch上还是需要做点功课。首先我们要启用yaourt，yaourt是arch的另一种软件包安装方式，yaourt包是非官方的，很多官方没有或者无法集成的包都可以在这里找到。启用yaourt的方式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/pacman.conf</span><br><span class="line">添加如下内容：</span><br><span class="line">[archlinuxcn]</span><br><span class="line">SigLevel = Optional TrustAll</span><br><span class="line">Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch</span><br></pre></td></tr></table></figure>
+<p>这里使用的是清华大学的镜像源，你也可以使用中科大源</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[archlinuxcn]</span><br><span class="line">SigLevel = Optional TrustAll</span><br><span class="line">Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch</span><br></pre></td></tr></table></figure>
+<p>保存之后安装密钥并再次更新pacman。注意搜狗拼音实际上是依赖于fcitx输入法框架的，所以要先安装fcitx再装搜狗拼音。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S archlinuxcn-keyring</span><br><span class="line">sudo pacman -Sy</span><br><span class="line">sudo pacman -S fcitx</span><br><span class="line">sudo pacman -S fcitx-sogoupinyin fcitx-configtool</span><br></pre></td></tr></table></figure>
+<p>安装完成后我们需要更新一下配置文件，linux没有注册表，所有的设置都是通过读取配置文件来执行的。设置fcitx为默认输入法的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nano ~/.xprofile</span><br><span class="line">加入如下内容</span><br><span class="line">export GTK_IM_MODULE=fcitx</span><br><span class="line">export QT_IM_MODULE=fcitx</span><br><span class="line">export XMODIFIERS=&quot;@im=fcitx&quot;</span><br></pre></td></tr></table></figure>
+<p>注销并重新登录就可以看到fcitx输入法了，右键设置添加输入法“Sougou Pinyin”然后按Ctrl+空格即可切换输入法了。</p>
+<h3 id="2-视频播放器"><a href="#2-视频播放器" class="headerlink" title="2 视频播放器"></a>2 视频播放器</h3><p>Linux平台的视频播放器当然要推大名鼎鼎的mplayer啦，但是这个项目已经很久没有更新了，现在推荐使用另一个基于mplayer开发的播放器mpv。安装方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S mpv</span><br></pre></td></tr></table></figure>
+<p>mpv的设置文件稍后会更新上来。如果你感觉mpv的使用不方便还想换回原来的mplayer和smplayer的方案的话：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S mplayer smplayer</span><br></pre></td></tr></table></figure>
+<h3 id="3-图像编辑"><a href="#3-图像编辑" class="headerlink" title="3 图像编辑"></a>3 图像编辑</h3><p>windows/macOS平台上有大名鼎鼎的Photoshop，但是linux平台是无缘啦。不过还要，有Gimp这个顶梁柱在：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S gimp</span><br></pre></td></tr></table></figure>
+<p>这家伙已经不是一篇文章能说清楚的了，有时间在更吧。</p>
+<h3 id="4-桌面主题"><a href="#4-桌面主题" class="headerlink" title="4 桌面主题"></a>4 桌面主题</h3><p>xfce4的桌面主题分为两部分，一个是gtk主题一个是Xfwm4主题，后者可以理解为窗口管理器。xfce4的主题可以在<a href="https://www.xfce-look.org/" target="_blank" rel="noopener">xfce-look</a>下载。</p>
+<p>下载后的主题有两种安装方式，我们假设下载的主题解压后文件夹的名字叫theme_example（注意不要文件夹套文件夹了，那样识别不出来的），那么这两种安装方式分别为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">仅当前用户可用</span><br><span class="line">cp theme_example ~/.themes/</span><br><span class="line">所有用户可用，需要root权限</span><br><span class="line">sudo cp theme_example /usr/share/themes/</span><br></pre></td></tr></table></figure>
+<p>扔进去之后在设置-外观里启用对应的gtk主题，在窗口-style里启用Xfwm4主题。对于一些比较流行的主题可以直接通过yaourt来安装，比如大名鼎鼎的Numix主题和arc主题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yaourt numix</span><br><span class="line">sudo yaourt gtk-theme-arc-git</span><br></pre></td></tr></table></figure>
+<p>如果找不到numix之类说明你需要修改一下pacman设置了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/pacman.conf</span><br><span class="line">添加下面几行</span><br><span class="line">[archlinuxfr]</span><br><span class="line">SigLevel = Never</span><br><span class="line">Server = http://repo.archlinux.fr/$arch</span><br></pre></td></tr></table></figure>
+<h3 id="5-边栏Docky"><a href="#5-边栏Docky" class="headerlink" title="5 边栏Docky"></a>5 边栏Docky</h3><p>Docky已经是很多美化的标配的，就是图中的那个侧边栏，安装方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S docky</span><br></pre></td></tr></table></figure>
+<h3 id="6-图标美化"><a href="#6-图标美化" class="headerlink" title="6 图标美化"></a>6 图标美化</h3><p>xfce默认的图标实在是太丑了，如果你刚刚已经安装了Numix那么可以在设置-外观中找到对应的主题了，如果你还要安装一些仓库里没有的图标，那可以按安装主题的方式来，不过要把文件夹换成~/.icon和/usr/share/icons，分别对应当前用户和所有用户，鼠标主题也放在这。</p>
+<h3 id="7-声音"><a href="#7-声音" class="headerlink" title="7 声音"></a>7 声音</h3><p>是不是突然发现没声音啊，我们之前不是装了声音驱动了么？这是由于你没有开声音啊，终端运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alsaximer</span><br></pre></td></tr></table></figure>
+<p>把代表静音的MM按M取消掉就行了。貌似还没有像windows和macOS那样直接在面板上调节音量的办法？当然有啦</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S pulseaudio pavucontrol xfce4-pulseaudio-plugin</span><br></pre></td></tr></table></figure>
+<p>然后就可以在面板上把pulseaudio-plugin加进去了，小喇叭终于出现了。</p>
+<h3 id="8-wifi和有线网"><a href="#8-wifi和有线网" class="headerlink" title="8 wifi和有线网"></a>8 wifi和有线网</h3><p>什么？你还想在面板上直接控制wifi和有线网？确实每次用wifi-menu太麻烦了，那就直接加上吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S network-manager-applet</span><br><span class="line">systemctl enable NetworkManager</span><br><span class="line">systemctl start NetworkManager</span><br></pre></td></tr></table></figure>
+<h3 id="9-办公软件"><a href="#9-办公软件" class="headerlink" title="9 办公软件"></a>9 办公软件</h3><p>都整好了突然老板让写个文档交上去……原来还没装office啊。arch下的office有wps for linux、libreoffice等，个人推荐wps</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yaourt wps-office</span><br></pre></td></tr></table></figure>
+<p>如果你要用libreoffice的话</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S libreoffice</span><br></pre></td></tr></table></figure>
+<p>需要说明一点，如果你是在非x86-64的CPU上用arch的话那基本上就只有libreoffice可用了。</p>
+<h3 id="10-下载工具"><a href="#10-下载工具" class="headerlink" title="10 下载工具"></a>10 下载工具</h3><p>linux下的下载工具有不少，比如curl、wget、axel等这些都可以通过pacman直接安装。这里说一下axel，它是一个多线程下载工具，速度相当恐怖，更好的一点是可以绕过几乎所有对下载工具的限制。用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">axel -n 线程数 链接 -o 保存路径</span><br></pre></td></tr></table></figure>
+<p>如果中途断线了也没关系，只要保存路径没有变axel还是会自动续传的。</p>
+<h3 id="11-压缩解压"><a href="#11-压缩解压" class="headerlink" title="11 压缩解压"></a>11 压缩解压</h3><p>windows下有winrar、7-zip、好压等各种工具，linux下呢？推荐一个xarchiver，直接pacman就可以安装。当然xarchiver支持的格式不是很多，不过不要紧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S rar unrar zip unzip p7zip</span><br></pre></td></tr></table></figure>
+<p>之后就可以全部兼容了。</p>
+<h3 id="12-文本编辑器"><a href="#12-文本编辑器" class="headerlink" title="12 文本编辑器"></a>12 文本编辑器</h3><p>总不能每次都用nano吧，虽然xfce自带了mousepad但是和写字板没啥区别啊。这里推荐gedit作为文本编辑器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S gedit</span><br></pre></td></tr></table></figure>
+<p>如果你要一个重量级的编辑器，比如能实时预览markdown之类的，可以用atom</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S atom</span><br></pre></td></tr></table></figure>
+<h3 id="13-终端美化"><a href="#13-终端美化" class="headerlink" title="13 终端美化"></a>13 终端美化</h3><p>全都搞完了终端怎么还是这个丑样子啊，推荐大家用oh-my-zsh，不过安装之前需要装一下git、wget或curl</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S git wget</span><br><span class="line">$ sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</span><br></pre></td></tr></table></figure>
+<p>当然也可以用curl来安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;</span><br></pre></td></tr></table></figure>
+<p>修改~/.zshrc就可以修改主题了，不过我认为默认的已经非常好看了。</p>
+<h3 id="14-screenfetch"><a href="#14-screenfetch" class="headerlink" title="14 screenfetch"></a>14 screenfetch</h3><p>linux装逼神器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S screenfetch</span><br></pre></td></tr></table></figure>
+<p>Show一下oh-my-zsh+screenfetch<br><img src="/xfce4-on-arch/2.png" alt=""></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
