@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="SpaceXI">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="Hello_world">
+  <meta property="og:title" content="ArchLinux办公软件推荐之qtiplot">
   <meta property="og:description" content="">
   <meta property="og:site_name" content="SpaceXI">
   <meta property="og:type" content="article">
@@ -41,7 +41,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">Hello_world</p>
+          <p class="title">ArchLinux办公软件推荐之qtiplot</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -81,14 +81,14 @@
           
           <!-- Date -->
           <span class="date-time info">On
-            <span class="date">2018-11-22</span>
+            <span class="date">2018-11-25</span>
             <span class="time">00:37:55</span>
           </span>
           
           <!--  Categories  -->
             <span class="categories info">Under 
 
-<a href="/categories/博客/">博客</a>
+<a href="/categories/archlinux/">archlinux</a>
 </span>
           
         </div>
@@ -97,20 +97,22 @@
           <div class="post-tags text-muted">
             Tags: 
 
-<a class="tag" href="/tags/博客/">#博客</a>
+<a class="tag" href="/tags/archlinux/">#archlinux</a> <a class="tag" href="/tags/办公/">#办公</a>
 
 
           </div>
         
         <!-- Post Main Content -->
         <div class="post-content">
-          <p>本来从2017年开始博客已经停止更新了，本地文件也都已经全部删除。但这一年多来总感觉少了点什么。越发感觉继续放下怕是很快就要堕落回计算机小白了，索性就捡起来之前的东西重新开始写博客吧。</p>
+          <p>使用Linux作为日常使用的主操作系统是一个非常有挑战也考验技术的事情，今天介绍一个用于替代windows平台下OriginLab的开源软件：Qtiplot。</p>
 <a id="more"></a>
-<h3 id="打算更新哪些内容"><a href="#打算更新哪些内容" class="headerlink" title="打算更新哪些内容"></a>打算更新哪些内容</h3><p>为了这个博客，新入手了一个小米Air12.5英寸版，绝大部分内容将会在该平台上完成。当然操作系统不会是万恶的windows，目前暂定的计划是全部基于Arch Linux。作为一个折腾为主的博客，计划以Arch Linux的配置和使用、Xfce4桌面环境、Hexo静态博客系统、python3、Gimp、Markdown等作为主要更新内容。核心宗旨是搭建一个基于Linux操作系统的数据分析-写作-发布平台。</p>
-<h3 id="可能会涉及到的内容"><a href="#可能会涉及到的内容" class="headerlink" title="可能会涉及到的内容"></a>可能会涉及到的内容</h3><p>既然使用了Linux作为唯一操作系统，那不可避免的会涉及到其他发行版的一些东西。此外既然使用了python3那么基于python的科学工具和数据分析可能偶尔也会涉及。还有一些个人感觉很不错的软件或者工具也会更新到博客上去。一些极端软件不可避免的要使用wine模拟器或者Virtualbox虚拟机，当然目前除了个别专业软件外唯一使用的就是QQ了。</p>
-<h3 id="不会涉及到的内容"><a href="#不会涉及到的内容" class="headerlink" title="不会涉及到的内容"></a>不会涉及到的内容</h3><p>想了很久要不要加入Matlab，后来还是放弃了。一是作为一个全部采用免费软件的平台，我不太希望引入Matlab这个收费的大坑；二是个人还是希望以Python作为matlab替代品来折腾。此外关于windows和MS office，这个我努力不会涉及。尽管我现在有两台电脑在运行windows10和office365，但都是作为办公平台在使用，不可能来回折腾。同样的原因，不会引入PS等win/mac平台专属软件。</p>
-<h3 id="更新频率"><a href="#更新频率" class="headerlink" title="更新频率"></a>更新频率</h3><p>随性而为，有空了手痒了就折腾一个，折腾完了就写个博客更新上去。</p>
-<p>嗯，就这样。</p>
+<p>Qtiplot号称开源的OriginLab，正如Gimp号称开源的Photoshop一样，不过显然qtiplot比gimp模仿的像多了。来一张qtiplot的图你就知道了</p>
+<p><img src="/qtiplot/1.png" alt=""></p>
+<p>是不是看上去就像是一个跑在老版本windows系统上的OrginLab？实际上和OriginLab的操作方法几乎都是一模一样的。不过这家伙可是一个货真价实的开源软件。</p>
+<p>不过还是有一些逻辑是不一样的，在OriginLab中每个图层中可以绘制多个曲线，在qtiplot中就只能绘制一个了，不过可以通过叠加多个图层实现相同的效果。上一个随便用qtiplot画的图：</p>
+<p><img src="/qtiplot/2.png" alt=""></p>
+<p>从图片美观度上来说显然是不如python画的，不过和OriginLab还是不分上下了，最重要的是全GUI操作，点几下鼠标就完成了。qtiplot支持导出几乎所有的图片格式，对于写论文绘图什么的还是挺不错的。最重要的是人家不要钱啊。</p>
+<p>Arch下的安装方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S qtiplot</span><br></pre></td></tr></table></figure></p>
 
         </div>
       </div>
