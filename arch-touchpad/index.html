@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="SpaceXI">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="优化ArchLinux触摸板实现自定义手势">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="SpaceXI">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://spacexi.github.com">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>SpaceXI</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">优化ArchLinux触摸板实现自定义手势</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  主页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  存档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/archlinux/">
+                  
+                  ArchLinux
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By SpaceXI</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-11-26</span>
+            <span class="time">16:14:17</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/archlinux/">archlinux</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/archlinux/">#archlinux</a> <a class="tag" href="/tags/触摸板/">#触摸板</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>用惯了Macbook还是非常羡慕Apple家的触摸板的，虽然win和Linux下触控板的能力确实比Apple家差远了，但并不妨碍我们给ArchLinux增加一下触摸板手势吧，毕竟只能单双击实在是太不爽了。</p>
+<a id="more"></a>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装libinput和xf86-input-libinput，需要开启yaourt并把当前用户加入到input组。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo gpasswd -a $USER input</span><br><span class="line">sudo pacman -S libinput xf86-input-libinput</span><br></pre></td></tr></table></figure></p>
+<h3 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h3><p>通常安装后默认的配置文件在<code>/usr/share/X11/xorg.conf.d/</code>目录下，查看可以看到多个驱动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd usr/share/X11/xorg.conf.d/</span><br><span class="line">ll</span><br><span class="line">total 12K</span><br><span class="line">-rw-r--r-- 1 root root 1.4K Oct 25 16:42 10-quirks.conf</span><br><span class="line">-rw-r--r-- 1 root root  945 Oct 16 14:56 40-libinput.conf</span><br><span class="line">-rw-r--r-- 1 root root 1.8K Jun  3 10:10 70-synaptics.conf</span><br></pre></td></tr></table></figure>
+<p>这里驱动文件夹前面的数字指的是优先级，优先使用数字较大的驱动，可以看到libinput的是40。</p>
+<p>然后我们需要把默认配置文件拷贝到<code>/etc/X11/xorg.conf.d/</code>中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /usr/share/X11/xorg.conf.d/40-libinput.conf /etc/X11/xorg.conf.d/40-libinput.conf</span><br></pre></td></tr></table></figure>
+<p>修改配置文件中的touchpad部分，注意每个硬件可能显示的型号不一样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Section &quot;InputClass&quot;</span><br><span class="line">        Identifier &quot;touchpad&quot;</span><br><span class="line">        MatchIsTouchpad &quot;on&quot;</span><br><span class="line">        MatchDevicePath &quot;/dev/input/event*&quot;</span><br><span class="line">        Driver &quot;libinput&quot;</span><br><span class="line">        Option &quot;Tapping&quot; &quot;on&quot;</span><br><span class="line">        Option &quot;ButtonMapping&quot; &quot;1 3 0 4 5 6 7&quot;</span><br><span class="line">        Option &quot;TappingButtonMap&quot; &quot;lrm&quot;</span><br><span class="line">        Option &quot;DisableWhileTyping&quot; &quot;on&quot;</span><br><span class="line">        Option &quot;TappingDrag&quot; &quot;on&quot;</span><br><span class="line">EndSection</span><br></pre></td></tr></table></figure></p>
+<p>这个文件的配置说明可以在<a href="https://www.mankier.com/4/libinput#Configuration_Details" target="_blank" rel="noopener">libinput man page: based on X.Org input dirver</a>中查到。</p>
+<p>直接使用上述配置文件时的效果是单指=左键，双指=右键，三指=中键。</p>
+<h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><p>要实现进一步的自定义手势，首先需要捕获触控板的操作事件，第一步：</p>
+<p>扫描一下设备列表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">xinput list</span><br><span class="line">⎡ Virtual core pointer                    	id=2	[master pointer  (3)]</span><br><span class="line">⎜   ↳ Virtual core XTEST pointer              	id=4	[slave  pointer  (2)]</span><br><span class="line">⎜   ↳ Synaptics TM3242-001                    	id=11	[slave  pointer  (2)]</span><br><span class="line">⎜   ↳ PixArt UT220 300 USB Optical Mouse      	id=9	[slave  pointer  (2)]</span><br><span class="line">⎣ Virtual core keyboard                   	id=3	[master keyboard (2)]</span><br><span class="line">    ↳ Virtual core XTEST keyboard             	id=5	[slave  keyboard (3)]</span><br><span class="line">    ↳ Power Button                            	id=6	[slave  keyboard (3)]</span><br><span class="line">    ↳ Power Button                            	id=8	[slave  keyboard (3)]</span><br><span class="line">    ↳ Intel HID events                        	id=12	[slave  keyboard (3)]</span><br><span class="line">    ↳ AT Translated Set 2 keyboard            	id=13	[slave  keyboard (3)]</span><br><span class="line">    ↳ XiaoMi USB 2.0 Webcam: XiaoMi U         	id=10	[slave  keyboard (3)]</span><br><span class="line">    ↳ Video Bus                               	id=7	[slave  keyboard (3)]</span><br></pre></td></tr></table></figure>
+<p>找到你的触控板后查看其详细配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xinput list-props &quot;你的触控板设备名字&quot;</span><br></pre></td></tr></table></figure>
+<p>在输出信息中记下<code>Device Node</code>后面的event数值，比如event7，这个就是我们要捕获的操作了。</p>
+<p>输入<code>libinput debug-gui --device /dev/input/event7</code>会出现一个图形化的操作检测界面，来确定你的触摸板能不能检测到你的操作。如果一切顺利应该是没有问题的。</p>
+<h3 id="添加自定义手势"><a href="#添加自定义手势" class="headerlink" title="添加自定义手势"></a>添加自定义手势</h3><p>要执行自定义手势你还需要自定义按键，<code>sudo pacman -S xdotool</code></p>
+<p>libinput-gestures安装后会有默认的配置，位置在<code>/etc/libinput-gestures.conf</code>，用户可以在<code>～/.config/libinput-gestures.conf</code>配置自己的配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano ～/.config/libinput-gestures.conf</span><br></pre></td></tr></table></figure>
+<p>下面提供一下我自己的配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 四指滑动=左右切换工作区</span><br><span class="line">gesture swipe right 4   xdotool key alt+ctrl+Right</span><br><span class="line">gesture swipe left 4 xdotool key alt+ctrl+Left</span><br><span class="line"></span><br><span class="line">gesture pinch in 2 xdotool key ctrl+minus # 2指捏: 缩小</span><br><span class="line">gesture pinch out 2 xdotool key ctrl+plus # 2指张: 放大</span><br></pre></td></tr></table></figure>
+<p>执行<code>libinput-gestures-setup start</code>来启动手势支持<br>执行<code>libinput-gestures-setup autostart</code>来添加服务自启动</p>
+<p>关于xdotool的更多用法请参见<a href="https://www.semicomplete.com/projects/xdotool/" target="_blank" rel="noopener">xdotool的Github主页</a></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
