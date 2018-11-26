@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="SpaceXI">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="轻量级的标记语言：Markdown">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="SpaceXI">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://spacexi.github.com">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>SpaceXI</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">轻量级的标记语言：Markdown</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  主页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  存档
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By SpaceXI</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-11-26</span>
+            <span class="time">12:14:03</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/markdown/">markdown</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/markdown/">#markdown</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>Markdown是一种纯文本的标记语言，非常容易上手，号称可以在1小时内掌握Markdown语法。想在被广泛应用于Github、简书等网站，以及日常的轻量级文字排版。</p>
+<a id="more"></a>
+<h3 id="Markdown基本语法"><a href="#Markdown基本语法" class="headerlink" title="Markdown基本语法"></a>Markdown基本语法</h3><p>Markdown语法中没有定义字体颜色等的关键字，如果需要采用这些设置就需要结合html语法。当然，在多数情况下是用不着的。Markdown大体上定义了如下几种基本的排版构型：</p>
+<h5 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h5><p>Markdown的标题分为1~7个等级，语法中用<code>#</code>表示，一级标题用一个#，N级用N个，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### 三级标题</span><br><span class="line">##### 五级标题</span><br></pre></td></tr></table></figure>
+<p>他们的显示效果是这样的：</p>
+<h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><p>Markdown并不能完全定义显示效果（如果不使用html语言的话）所以在不同的网站上，根据设置和主题的不同可能会略有区别，但大体上都遵循了固定的显示格式。</p>
+<h5 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h5><p>Markdown没有定义正文的显示模式，除了特殊定义的格式之外全部都被是别问正文。不过可以定义几种正文格式，比如加粗、斜体等，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">**这是加粗的文字**</span><br><span class="line">*这是倾斜的文字*`</span><br><span class="line">***这是斜体加粗的文字***</span><br><span class="line">~~这是加删除线的文字~~</span><br></pre></td></tr></table></figure>
+<p>效果如下：<br><strong>这是加粗的文字</strong><br><em>这是倾斜的文字</em>`<br><strong><em>这是斜体加粗的文字</em></strong><br><del>这是加删除线的文字</del></p>
+<h5 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h5><p>Markdown用<code>&gt;</code>表示引用，加上几次就表示几级引用，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; 这里是一级引用内容</span><br><span class="line">&gt;&gt; 这里是二级引用内容</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里是一级引用内容</p>
+<blockquote>
+<p>这里是二级引用内容</p>
+</blockquote>
+</blockquote>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><p>Markdown插入代码块有两种方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`代码`</span><br></pre></td></tr></table></figure>
+<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(```)</span><br><span class="line">代码块，注意为了演示加上了括号，使用的时候请删掉括号</span><br><span class="line">(```)</span><br></pre></td></tr></table></figure></p>
+<h5 id="图片和链接"><a href="#图片和链接" class="headerlink" title="图片和链接"></a>图片和链接</h5><p>Markdown本身不能直接嵌入图片，所有的图片都是外链进来的，所以在使用带有图片的markdown文本时一定要注意同步移动原图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![替代文字](图片链接)</span><br></pre></td></tr></table></figure>
+<p>替代文字的作用是当图片不能显示时显示文字以代替，如果要单纯插入链接，那么：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[文本](链接)</span><br></pre></td></tr></table></figure>
+<p>这样就行了，比如本站的链接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[SpaceXI](https://spacexi.github.io/)</span><br></pre></td></tr></table></figure>
+<p>效果为：<a href="https://spacexi.github.io/" target="_blank" rel="noopener">SpaceXI</a></p>
+<h5 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h5><p>Markdown的列表只要添加星号或者加号就行了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* item 1</span><br><span class="line">+ item 2</span><br></pre></td></tr></table></figure>
+<p>效果如下，星号和加号是等效的</p>
+<ul>
+<li>item 1</li>
+</ul>
+<ul>
+<li>item 2</li>
+</ul>
+<h5 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h5><p>Markdown也支持表格，虽然实际使用中很不常用，格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|---:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br></pre></td></tr></table></figure>
+<p>效果如下，注意-号其实可以只写一个，这里用了多个是为了对齐好看</p>
+<table>
+<thead>
+<tr>
+<th>表头</th>
+<th style="text-align:center">表头</th>
+<th style="text-align:right">表头</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容</td>
+<td style="text-align:center">内容</td>
+<td style="text-align:right">内容</td>
+</tr>
+<tr>
+<td>内容</td>
+<td style="text-align:center">内容</td>
+<td style="text-align:right">内容</td>
+</tr>
+</tbody>
+</table>
+<p>是不是很简单，基本的Markdown语法就这么点了。</p>
+<h3 id="Markdown文本的保存"><a href="#Markdown文本的保存" class="headerlink" title="Markdown文本的保存"></a>Markdown文本的保存</h3><p>Markdown文本采用纯文本模式保存，通常是一个后缀名为.md的文件，理论上你可以用任何文本编辑器来打开。如果你想保存Markdown输出的文本，可以使用插件将文本转换成pdf或者html文件。</p>
+<p>其中一个是Atom编辑器，Atom编辑器是一个全能的家伙，在Atom里搜markdown插件能找到各种markdown向N种文本转换的插件。给出Arch下的安装方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S atom</span><br></pre></td></tr></table></figure>
+<p>另一个就是pandoc，这家伙不仅可以把Markdown转换成pdf，实际上支持几十种格式的输出，包括转成doc文档都没有问题。不过需要用到python环境这里就先不多说了。</p>
+<p>上一个图，在Atom里写博客的样子</p>
+<p><img src="/markdown/1.png" alt=""></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
