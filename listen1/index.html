@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="SpaceXI">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="ArchLinux办公软件推荐之qtiplot">
+  <meta property="og:title" content="Linux下好用的在线音乐播放器：Listen1">
   <meta property="og:description" content="">
   <meta property="og:site_name" content="SpaceXI">
   <meta property="og:type" content="article">
@@ -41,7 +41,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">ArchLinux办公软件推荐之qtiplot</p>
+          <p class="title">Linux下好用的在线音乐播放器：Listen1</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -97,7 +97,7 @@
           
           <!-- Date -->
           <span class="date-time info">On
-            <span class="date">2018-11-25</span>
+            <span class="date">2018-12-02</span>
             <span class="time">19:13:32</span>
           </span>
           
@@ -113,22 +113,25 @@
           <div class="post-tags text-muted">
             Tags: 
 
-<a class="tag" href="/tags/archlinux/">#archlinux</a> <a class="tag" href="/tags/办公/">#办公</a>
+<a class="tag" href="/tags/archlinux/">#archlinux</a> <a class="tag" href="/tags/listen1/">#listen1</a> <a class="tag" href="/tags/music/">#music</a>
 
 
           </div>
         
         <!-- Post Main Content -->
         <div class="post-content">
-          <p>使用Linux作为日常使用的主操作系统是一个非常有挑战也考验技术的事情，今天介绍一个用于替代windows平台下OriginLab的开源软件：Qtiplot。</p>
+          <p>Linux下缺少好用的在线播放器？还在为网易云音乐各种崩溃烦恼？今天介绍一个超级好用的在线音乐播放器：Listen1。</p>
 <a id="more"></a>
-<p>Qtiplot号称开源的OriginLab，正如Gimp号称开源的Photoshop一样，不过显然qtiplot比gimp模仿的像多了。来一张qtiplot的图你就知道了</p>
-<p><img src="/qtiplot/1.png" alt=""></p>
-<p>是不是看上去就像是一个跑在老版本windows系统上的OrginLab？实际上和OriginLab的操作方法几乎都是一模一样的。不过这家伙可是一个货真价实的开源软件。</p>
-<p>不过还是有一些逻辑是不一样的，在OriginLab中每个图层中可以绘制多个曲线，在qtiplot中就只能绘制一个了，不过可以通过叠加多个图层实现相同的效果。上一个随便用qtiplot画的图：</p>
-<p><img src="/qtiplot/2.png" alt=""></p>
-<p>从图片美观度上来说显然是不如python画的，不过和OriginLab还是不分上下了，最重要的是全GUI操作，点几下鼠标就完成了。qtiplot支持导出几乎所有的图片格式，对于写论文绘图什么的还是挺不错的。最重要的是人家不要钱啊。</p>
-<p>Arch下的安装方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S qtiplot</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>Listen1是一个开源的跨平台音乐播放器，不过由于版权问题Listen1只能在线播放不能下载歌曲，也不能打开本地音乐。Listen1实际上是将QQ音乐、虾米音乐、网易云音乐、酷狗音乐和酷我音乐的在线内容直接集成过来了。</p>
+<p>Listen1的各版本客户端可以从<a href="http://listen1.github.io/listen1/" target="_blank" rel="noopener">Listen1的Github主页</a>下载。支持windows、linux和macOS操作系统，此外还有Firefox和Chrome插件版。</p>
+<p><img src="/listen1/1.png" alt=""></p>
+<p>下载来的Listen1是绿色软件，直接解压就能运行，如果你非要把Listen1添加到应用程序里，那么建议进行如下操作(假设你的Listen1文件夹名叫Listen1)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv Listen1 ~/.local/share/Listen1/</span><br><span class="line">nano ~/.local/share/Applications/Listen1.desktop</span><br></pre></td></tr></table></figure>
+<p>然后写入如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Encoding=UTF-8</span><br><span class="line">Type=Application</span><br><span class="line">Exec=/home/用户名/.local/share/Listen1/listen1</span><br><span class="line">Terminal=false</span><br><span class="line">Name=Listen1</span><br><span class="line">Protocols=file</span><br><span class="line">Icon=/home/用户名/.local/share/Listen1/listen1.png（图标自己找哦）</span><br><span class="line">Categories=Audio;</span><br></pre></td></tr></table></figure>
+<p>接下来继续执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x ~/.local/share/Applications/Listen1.desktop</span><br></pre></td></tr></table></figure>
+<p>然后看看Applications菜单里是不是有啦。其实Linux里添加用用程序到App菜单只需要在<code>~/.local/share/Applications/</code>里添加相应的desktop文件并赋予可执行权限就可以了。</p>
 
         </div>
       </div>
