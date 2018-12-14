@@ -8,10 +8,10 @@
   <meta name="description" content="">
   <meta name="author" content="SpaceXI">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="SpaceXI">
+  <meta property="og:title" content="Archlinux升级wine4.0之后deepin-wine-tim崩溃的解决办法">
   <meta property="og:description" content="">
   <meta property="og:site_name" content="SpaceXI">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
   <meta property="og:image" content="https://spacexi.github.com">
   
   
@@ -33,8 +33,7 @@
 </head>
 
   <body>
-    <!-- Archive Header -->
-<!-- Page Header -->
+    <!-- Page Header -->
 
 
 <header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
@@ -42,7 +41,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">全部文章</p>
+          <p class="title">Archlinux升级wine4.0之后deepin-wine-tim崩溃的解决办法</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -95,65 +94,53 @@
   </div>
 </header>
 
-<!-- Archive List -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      
-        <div class="archive-item">
-  <a href="/hexo/" class="post-title">
-    使用Hexo在Github搭建静态博客
-  </a>
-  <div class="date text-muted">Posted on 2018-11-24 23:11:43</div>
-</div>
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By SpaceXI</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2018-12-14</span>
+            <span class="time">20:03:45</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
 
-      
-        <div class="archive-item">
-  <a href="/xfce4-on-arch/" class="post-title">
-    Archlinux安装xfce4后的设置与美化
-  </a>
-  <div class="date text-muted">Posted on 2018-11-22 23:18:41</div>
-</div>
+<a href="/categories/archlinux/">archlinux</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
 
-      
-        <div class="archive-item">
-  <a href="/install-archlinux-uefi/" class="post-title">
-    在uefi+gpt磁盘上安装Archlinux
-  </a>
-  <div class="date text-muted">Posted on 2018-11-22 19:38:16</div>
-</div>
+<a class="tag" href="/tags/wine/">#wine</a> <a class="tag" href="/tags/archlinux/">#archlinux</a> <a class="tag" href="/tags/tim/">#tim</a> <a class="tag" href="/tags/deepin/">#deepin</a>
 
-      
-        <div class="archive-item">
-  <a href="/Hello-world/" class="post-title">
-    Hello_world
-  </a>
-  <div class="date text-muted">Posted on 2018-11-22 18:09:57</div>
-</div>
 
-      
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>习惯性的pacman -Syu之后Arch把wine升级到了4.0，结果突然发现wine-tim被卡的死慢，甚至直接崩溃，几经折腾终于找到了解决办法，重置一下就好了。</p>
+<a id="more"></a>
+<p>我Archlinux下使用的的TIM是基于deepin的封装版，软件包叫<a href="https://aur.archlinux.org/packages/deepin-wine-tim/" target="_blank" rel="noopener">deepin-wine-tim</a>，这个包貌似还在维护，比那个qq和微信的稳定不少。</p>
+<p>升级之后TIM变得奇卡无比，手动执行wine发现N个报错，而且是无限循环报错…猜是大版本升级导致的兼容性问题，换了个路径重装一下发现一切OK。于是乎想到了解决办法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/deepinwine/apps/Deepin-TIM/run.sh -r</span><br></pre></td></tr></table></figure>
+<p>这条命令是deepin-wine-tim软件包中自带的，用来在配置文件出错时重置配置文件，执行一次之后所有问题全部消失…</p>
+<p>个人推测，该问题只会发生在老用户升级wine之后，如果还没有将wine升级到4.0RC，建议暂时不要升级。</p>
 
+        </div>
+      </div>
     </div>
   </div>
-</div>
-<!-- Pagination -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-10 col-md-10 col-md-offset-1">
-      <ul class="pagination">
-          
-              <li class="previous">
-                <a href="/archives/">
-                  <span class="symbol-left">&lt;</span>
-                  <span>上一页</span>
-                </a>
-              </li>
-          
-          
-      </ul>
-    </div>
-  </div>
-</div>
+</article>
 
 
 
