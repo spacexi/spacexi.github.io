@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="SpaceXI">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="Hello_world">
+  <meta property="og:title" content="Archlinux下wine微信提示wechatwin.dll缺失的解决办法">
   <meta property="og:description" content="">
   <meta property="og:site_name" content="SpaceXI">
   <meta property="og:type" content="article">
@@ -41,7 +41,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">Hello_world</p>
+          <p class="title">Archlinux下wine微信提示wechatwin.dll缺失的解决办法</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -105,14 +105,14 @@
           
           <!-- Date -->
           <span class="date-time info">On
-            <span class="date">2018-11-22</span>
+            <span class="date">2018-12-15</span>
             <span class="time">21:29:03</span>
           </span>
           
           <!--  Categories  -->
             <span class="categories info">Under 
 
-<a href="/categories/博客/">博客</a>
+<a href="/categories/archlinux/">archlinux</a>
 </span>
           
         </div>
@@ -121,20 +121,28 @@
           <div class="post-tags text-muted">
             Tags: 
 
-<a class="tag" href="/tags/博客/">#博客</a>
+<a class="tag" href="/tags/archlinux/">#archlinux</a> <a class="tag" href="/tags/win/">#win</a> <a class="tag" href="/tags/wechat/">#wechat</a>
 
 
           </div>
         
         <!-- Post Main Content -->
         <div class="post-content">
-          <p>本来从2017年开始博客已经停止更新了，本地文件也都已经全部删除。但这一年多来总感觉少了点什么。越发感觉继续放下怕是很快就要堕落回计算机小白了，索性就捡起来之前的东西重新开始写博客吧。</p>
+          <p>要说社交类APP当然非微信莫属了，可惜linux下没有官方的微信。当然，解决办法还是有的，那就是用wine跑windows的微信。</p>
 <a id="more"></a>
-<h3 id="打算更新哪些内容"><a href="#打算更新哪些内容" class="headerlink" title="打算更新哪些内容"></a>打算更新哪些内容</h3><p>为了这个博客，新入手了一个小米Air12.5英寸版，绝大部分内容将会在该平台上完成。当然操作系统不会是万恶的windows，目前暂定的计划是全部基于Arch Linux。作为一个折腾为主的博客，计划以Arch Linux的配置和使用、Xfce4桌面环境、Hexo静态博客系统、python3、Gimp、Markdown等作为主要更新内容。核心宗旨是搭建一个基于Linux操作系统的数据分析-写作-发布平台。</p>
-<h3 id="可能会涉及到的内容"><a href="#可能会涉及到的内容" class="headerlink" title="可能会涉及到的内容"></a>可能会涉及到的内容</h3><p>既然使用了Linux作为唯一操作系统，那不可避免的会涉及到其他发行版的一些东西。此外既然使用了python3那么基于python的科学工具和数据分析可能偶尔也会涉及。还有一些个人感觉很不错的软件或者工具也会更新到博客上去。一些极端软件不可避免的要使用wine模拟器或者Virtualbox虚拟机，当然目前除了个别专业软件外唯一使用的就是QQ了。</p>
-<h3 id="不会涉及到的内容"><a href="#不会涉及到的内容" class="headerlink" title="不会涉及到的内容"></a>不会涉及到的内容</h3><p>想了很久要不要加入Matlab，后来还是放弃了。一是作为一个全部采用免费软件的平台，我不太希望引入Matlab这个收费的大坑；二是个人还是希望以Python作为matlab替代品来折腾。此外关于windows和MS office，这个我努力不会涉及。尽管我现在有两台电脑在运行windows10和office365，但都是作为办公平台在使用，不可能来回折腾。同样的原因，不会引入PS等win/mac平台专属软件。</p>
-<h3 id="更新频率"><a href="#更新频率" class="headerlink" title="更新频率"></a>更新频率</h3><p>随性而为，有空了手痒了就折腾一个，折腾完了就写个博客更新上去。</p>
-<p>嗯，就这样。</p>
+<h3 id="Wine运行微信的问题"><a href="#Wine运行微信的问题" class="headerlink" title="Wine运行微信的问题"></a>Wine运行微信的问题</h3><p>虽然看上去微信是一个比QQ或者TIM要简单和轻量级的多的APP，但是实测表明想要用wine运行微信问题还是老多了。这里提供一个简单的办法就是先获得使用wine运行TIM的环境。</p>
+<p>使用wine来运行TIM只需要一个叫<a href="https://aur.archlinux.org/packages/deepin-wine-tim/" target="_blank" rel="noopener">deepin-wine-tim</a>的包就可以了，<a href="https://spacexi.github.io/archlinux-reset-tim/" target="_blank" rel="noopener">我的文章里写到过</a>.</p>
+<p>安装<a href="https://aur.archlinux.org/packages/deepin-wine-tim/" target="_blank" rel="noopener">deepin-wine-tim</a>会出现在～下生成一个.deepinwine/Deepin-TIM的文件夹，这个就是默认运行TIM的容器。我们需要把微信也安装到这个容器里。</p>
+<p>下载微信的windows客户端，假设名叫wechat.exe，然后执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env WINEPREFIX=/home/这里换成你的用户名/.deepinwine/Deepin-TIM  wine wechat.exe</span><br></pre></td></tr></table></figure>
+<p>像windows一样安装，注意装好后不要启动微信，因为会提示</p>
+<blockquote>
+<p>无效的WeChatWin.dll</p>
+</blockquote>
+<p>其实这个dll就老老实实的躺在你的安装目录里，出现这个错误的原因在于64位的Arch无法正确加载这个32位的dll</p>
+<h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><p>既然问题是由于dll无法加载导致的，那么网上流传的将dll拷贝到wine里的system32或者systemwow64也都是无效的。真正的解决办法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -Syu lib32-libldap</span><br></pre></td></tr></table></figure>
+<p>其实就是打个补丁让Arch能加载32位的dll就行了，重新启动微信扫码登录吧。</p>
 
         </div>
       </div>
