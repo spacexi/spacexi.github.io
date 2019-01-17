@@ -8,10 +8,10 @@
   <meta name="description" content="">
   <meta name="author" content="SpaceXI">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="SpaceXI">
+  <meta property="og:title" content="ArchLinux使用HP打印机">
   <meta property="og:description" content="">
   <meta property="og:site_name" content="SpaceXI">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="article">
   <meta property="og:image" content="https://spacexi.github.com">
   
   
@@ -33,8 +33,7 @@
 </head>
 
   <body>
-    <!-- Archive Header -->
-<!-- Page Header -->
+    <!-- Page Header -->
 
 
 <header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
@@ -42,7 +41,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">全部文章</p>
+          <p class="title">ArchLinux使用HP打印机</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -95,113 +94,53 @@
   </div>
 </header>
 
-<!-- Archive List -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      
-        <div class="archive-item">
-  <a href="/archlinux-hpprint/" class="post-title">
-    ArchLinux使用HP打印机
-  </a>
-  <div class="date text-muted">Posted on 2019-01-17 00:04:10</div>
-</div>
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By SpaceXI</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2019-01-17</span>
+            <span class="time">00:10:35</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
 
-      
-        <div class="archive-item">
-  <a href="/Qsanguosha-linux/" class="post-title">
-    在ArchLinux上编译太阳神三国杀
-  </a>
-  <div class="date text-muted">Posted on 2019-01-16 23:13:35</div>
-</div>
+<a href="/categories/archlinux/">archlinux</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
 
-      
-        <div class="archive-item">
-  <a href="/arch-wine-wechat/" class="post-title">
-    Archlinux下wine微信提示wechatwin.dll缺失的解决办法
-  </a>
-  <div class="date text-muted">Posted on 2018-12-15 21:12:43</div>
-</div>
+<a class="tag" href="/tags/archlinux/">#archlinux</a> <a class="tag" href="/tags/打印机/">#打印机</a>
 
-      
-        <div class="archive-item">
-  <a href="/archlinux-reset-tim/" class="post-title">
-    Archlinux升级wine4.0之后deepin-wine-tim崩溃的解决办法
-  </a>
-  <div class="date text-muted">Posted on 2018-12-14 19:53:15</div>
-</div>
 
-      
-        <div class="archive-item">
-  <a href="/landslide/" class="post-title">
-    Landslide：用Markdown制作基于HTML的PPT
-  </a>
-  <div class="date text-muted">Posted on 2018-12-06 22:49:45</div>
-</div>
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>在ArchLinux上配置并使用HP打印机。</p>
+<a id="more"></a>
+<h3 id="安装驱动"><a href="#安装驱动" class="headerlink" title="安装驱动"></a>安装驱动</h3><p>Archlinux的仓库里已经有很多打印机的驱动了，比如hp的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cups ghostscript gsfonts hpoj hplip</span><br></pre></td></tr></table></figure></p>
+<p>安装后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart avahi-daemon.service</span><br><span class="line">sudo systemctl start cups-browsed.service</span><br></pre></td></tr></table></figure>
+<h3 id="添加打印机"><a href="#添加打印机" class="headerlink" title="添加打印机"></a>添加打印机</h3><p>在浏览器中输入<a href="http://localhost:631" target="_blank" rel="noopener">http://localhost:631</a> 进入cups设置页面，选择Administration –&gt; Add Printer –&gt; Add Printer。中间要登录一下，记得用root账号或者具有root权限的用户，不然会没有权限添加打印机。</p>
+<p>添加之后就可以直接使用打印服务了，和windows没啥区别。不过linux的打印测试页真是丑啊。</p>
 
-      
-        <div class="archive-item">
-  <a href="/matplotlib-plot/" class="post-title">
-    使用Python绘制漂亮的点线图
-  </a>
-  <div class="date text-muted">Posted on 2018-12-02 20:35:20</div>
-</div>
-
-      
-        <div class="archive-item">
-  <a href="/spyder3/" class="post-title">
-    神似Matlab的Python集成开发环境：Spyder
-  </a>
-  <div class="date text-muted">Posted on 2018-12-02 19:21:35</div>
-</div>
-
-      
-        <div class="archive-item">
-  <a href="/listen1/" class="post-title">
-    Linux下好用的在线音乐播放器：Listen1
-  </a>
-  <div class="date text-muted">Posted on 2018-12-02 18:55:40</div>
-</div>
-
-      
-        <div class="archive-item">
-  <a href="/rdesktop/" class="post-title">
-    Archlinux通过rdesktop远程链接windows主机
-  </a>
-  <div class="date text-muted">Posted on 2018-12-02 18:25:06</div>
-</div>
-
-      
-        <div class="archive-item">
-  <a href="/markdown-ppt/" class="post-title">
-    应对报告新手段：使用Markdown写PPT
-  </a>
-  <div class="date text-muted">Posted on 2018-11-26 16:46:40</div>
-</div>
-
-      
-
+        </div>
+      </div>
     </div>
   </div>
-</div>
-<!-- Pagination -->
-<div class="container">
-  <div class="row">
-    <div class="col-lg-10 col-md-10 col-md-offset-1">
-      <ul class="pagination">
-          
-          
-            <li class="next">
-              <a href="/archives/page/2/">
-                <span>下一页</span>
-                <span class="symbol-right">&gt;</span>
-              </a>
-            </li>
-          
-      </ul>
-    </div>
-  </div>
-</div>
+</article>
 
 
 
