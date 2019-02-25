@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="SpaceXI">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="自己动手丰衣足食：一步一步美化你的Powershell">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="SpaceXI">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://spacexi.github.com">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>SpaceXI</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">自己动手丰衣足食：一步一步美化你的Powershell</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  主页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  存档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/archlinux/">
+                  
+                  ArchLinux
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/python/">
+                  
+                  Python
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/markdown/">
+                  
+                  Markdown
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/powershell/">
+                  
+                  Powershell
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By SpaceXI</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2019-02-25</span>
+            <span class="time">20:05:09</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Under 
+
+<a href="/categories/powershell/">powershell</a> / <a href="/categories/powershell/win10/">win10</a>
+</span>
+          
+        </div>
+        <!-- Tags -->
+        
+          <div class="post-tags text-muted">
+            Tags: 
+
+<a class="tag" href="/tags/powershell/">#powershell</a>
+
+
+          </div>
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>提起windows下的命令行，估计大家都能想到那个万年不变的黑乎乎窗口，其实早在win7时代，微软就在windows中内置了新一代的shell——powershell。随着功能的逐步完善，powershell现在变得越来越好用啦。只是微软这奇葩审美，powershell的界面实在是丑，那么就来美化一下吧。</p>
+<a id="more"></a>
+<h3 id="安装oh-my-posh"><a href="#安装oh-my-posh" class="headerlink" title="安装oh-my-posh"></a>安装oh-my-posh</h3><p>正所谓工欲善其事必先利其器，一个漂亮的终端对学习powershell是必不可少的。在开始之前你首先要以管理员权限运行powershell，方法是：</p>
+<ul>
+<li>win10: win+X，然后选择Powershell（管理员权限）</li>
+<li>win7: 开始菜单输入powershell，右键以管理员权限运行</li>
+</ul>
+<p>windows默认的powershell是这个样子的：</p>
+<p><img src="/powershell/1.png" alt=""></p>
+<p>下面我们首先要让powershell具有执行脚本的权限：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-ExecutionPolicy Bypass</span><br></pre></td></tr></table></figure>
+<p>然后运行命令以安装 posh-git</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nstall-Module posh-git -Scope CurrentUser</span><br></pre></td></tr></table></figure>
+<p>可能会提示需要安装NuGet，yes就行</p>
+<p>之后安装oh-my-posh，熟悉linux的同学会发现这货和oh-my-zsh贼像的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Install-Module oh-my-posh -Scope CurrentUser</span><br></pre></td></tr></table></figure></p>
+<p>安装完成后，执行<code>Import-Module oh-my-posh</code>来加载oh-my-posh，输入<code>Set-Theme Agnoster</code>来启用默认主题</p>
+<p>注意，到此时powershell还是很难看的，这是因为windows内置的powershell客户端做了很大的限制，为了解除这个限制你需要安装第三方的powershell客户端。</p>
+<p>提示：如果你安装后提示找不到git工具，那么需要手动安装<a href="https://www.git-scm.com/download/" target="_blank" rel="noopener">git for windows</a>，记得在安装过程中允许windows终端或者第三方终端使用git，就像这样</p>
+<p><img src="/powershell/2.png" alt=""></p>
+<h3 id="安装ConEmu"><a href="#安装ConEmu" class="headerlink" title="安装ConEmu"></a>安装ConEmu</h3><p>先介绍一个powershell的神器Chocolatey，下载地址：<a href="https://chocolatey.org/" target="_blank" rel="noopener">https://chocolatey.org/</a>这家伙强大到什么地步呢，他能让你像linux下的apt-get那样用powershell来管理windows的软件包。</p>
+<p>安装完毕后，以管理员权限运行powershell，输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">choco install ConEmu</span><br></pre></td></tr></table></figure></p>
+<p>运行结束后使用新安装的ConEmu来执行powershell就会看到漂亮的oh-my-posh界面啦。</p>
+<p>注意哦，Comemu不仅可以执行powershell，还可以替代cmd那个窗口。</p>
+<p>另外，choco这家伙还能安装很多别的软件，比如atom、nano、chrome，基本上应有尽有，连TIM都有。</p>
+<h3 id="字体美化"><a href="#字体美化" class="headerlink" title="字体美化"></a>字体美化</h3><p>windows内置的字体其实不太适合终端界面，这里给大家推荐一下powerline fonts字体，这是<a href="https://github.com/powerline/fonts" target="_blank" rel="noopener">Powerline Fonts的github</a>安装按照Github上的教程就行了。</p>
+<p>如果你实在是懒，那么也可以用Microsoft Yahei Mono字体，这个百度上有一大堆，个人感觉还凑合。</p>
+<p>那么经过那么久的美化，你的powershell应该是什么样子呢？执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Import-Module posh-git</span><br><span class="line">Import-Module oh-my-posh</span><br><span class="line">Set-Theme Agnoster</span><br></pre></td></tr></table></figure></p>
+<p>应该是这个样子了<br><img src="/powershell/3.png" alt=""></p>
+<h3 id="让美化配置能自动加载"><a href="#让美化配置能自动加载" class="headerlink" title="让美化配置能自动加载"></a>让美化配置能自动加载</h3><p>不过每次重启都要执行一次配置是不是很麻烦啊，没关系，把这几个命令写入配置文件就行了。执行<code>$profile</code>来查看默认配置文件的位置，然后打开它（如果没有就新建一个同名的）</p>
+<p>加入如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Import-Module posh-git</span><br><span class="line">Import-Module oh-my-posh</span><br><span class="line">Set-Theme Agnoster</span><br></pre></td></tr></table></figure></p>
+<p>保存之后重启即可。</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
