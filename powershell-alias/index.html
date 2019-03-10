@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="SpaceXI">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="ArchLinux办公软件推荐之qtiplot">
+  <meta property="og:title" content="在powershell中设置别名">
   <meta property="og:description" content="">
   <meta property="og:site_name" content="SpaceXI">
   <meta property="og:type" content="article">
@@ -41,7 +41,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">ArchLinux办公软件推荐之qtiplot</p>
+          <p class="title">在powershell中设置别名</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -113,14 +113,14 @@
           
           <!-- Date -->
           <span class="date-time info">On
-            <span class="date">2018-11-25</span>
-            <span class="time">16:34:49</span>
+            <span class="date">2019-03-10</span>
+            <span class="time">16:34:50</span>
           </span>
           
           <!--  Categories  -->
             <span class="categories info">Under 
 
-<a href="/categories/archlinux/">archlinux</a>
+<a href="/categories/powershell/">powershell</a>
 </span>
           
         </div>
@@ -129,22 +129,29 @@
           <div class="post-tags text-muted">
             Tags: 
 
-<a class="tag" href="/tags/archlinux/">#archlinux</a> <a class="tag" href="/tags/绘图/">#绘图</a>
+<a class="tag" href="/tags/powershell/">#powershell</a>
 
 
           </div>
         
         <!-- Post Main Content -->
         <div class="post-content">
-          <p>使用Linux作为日常使用的主操作系统是一个非常有挑战也考验技术的事情，今天介绍一个用于替代windows平台下OriginLab的开源软件：Qtiplot。</p>
+          <p>Powershell作为windows下的新一代shell，功能自然是没得说的，但是这命令实在是太繁琐了。还好我们有设置别名这个一功能。</p>
 <a id="more"></a>
-<p>Qtiplot号称开源的OriginLab，正如Gimp号称开源的Photoshop一样，不过显然qtiplot比gimp模仿的像多了。来一张qtiplot的图你就知道了</p>
-<p><img src="/qtiplot/1.png" alt=""></p>
-<p>是不是看上去就像是一个跑在老版本windows系统上的OrginLab？实际上和OriginLab的操作方法几乎都是一模一样的。不过这家伙可是一个货真价实的开源软件。</p>
-<p>不过还是有一些逻辑是不一样的，在OriginLab中每个图层中可以绘制多个曲线，在qtiplot中就只能绘制一个了，不过可以通过叠加多个图层实现相同的效果。上一个随便用qtiplot画的图：</p>
-<p><img src="/qtiplot/2.png" alt=""></p>
-<p>从图片美观度上来说显然是不如python画的，不过和OriginLab还是不分上下了，最重要的是全GUI操作，点几下鼠标就完成了。qtiplot支持导出几乎所有的图片格式，对于写论文绘图什么的还是挺不错的。最重要的是人家不要钱啊。</p>
-<p>Arch下的安装方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pacman -S qtiplot</span><br></pre></td></tr></table></figure></p>
+<h3 id="Powershell中的别名"><a href="#Powershell中的别名" class="headerlink" title="Powershell中的别名"></a>Powershell中的别名</h3><p>Powershell中的别名和其他shell中类似，比如powershell中用来列出当前目录下所有文件和目录的命令是：Get-ChildItem，是不是很烦人，不好记。看看unix下的的默认命令ls，多好记。那我们就可以把Get-ChildItem起个别名叫ls，以后输入ls就等同于输入Get-ChildItem，这样就可以愉快的在powershell下ls了。</p>
+<p>在Powershell设置别名的方式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Alias 别名 源名</span><br></pre></td></tr></table></figure></p>
+<p>比如刚刚我们的想法就可以这样写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Alias ls Get-ChildItem</span><br></pre></td></tr></table></figure>
+<p>不过你不用去尝试设置这个别名了，因为微软已经把这个别名默认写进Powershell啦，看样子他们自己也知道powershell的写法太繁琐了。</p>
+<h3 id="Powershell中把语句设置为别名"><a href="#Powershell中把语句设置为别名" class="headerlink" title="Powershell中把语句设置为别名"></a>Powershell中把语句设置为别名</h3><p>但是呢，powershell的别名只能直接alias给命令，不能给语句。比如我们执行<code>Set-Alias pcsonfig ‘nano $profile’</code>就会报错(这个命令是编辑powershell的默认配置文件，当然前提是你有nano编辑器)。那怎么办呢，还有一个大法叫函数</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> Edit-poshconfig &#123;</span><br><span class="line">  nano <span class="variable">$profile</span></span><br><span class="line">&#125;</span><br><span class="line">Set-Alias psconfig Edit-poshconfig</span><br></pre></td></tr></table></figure>
+<p>上述例子就是先顶一个一个我们要执行语句的函数，然后再给这个函数起个别名。</p>
+<h3 id="在Powershell中保存别名"><a href="#在Powershell中保存别名" class="headerlink" title="在Powershell中保存别名"></a>在Powershell中保存别名</h3><p>上述设置别名的方法都是临时性的，并没法将别名保存。如果需要设置长久性给的别名，那么需要把设置别名的命令写入powershell的配置文件。</p>
+<p>在powershell中输入下面这个命令就能看到配置文件的地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$profile</span><br></pre></td></tr></table></figure>
+<p>打开然后把你要的命令写入就行了（如果没有文件就新建一个同名的）。原理就相当于powershell每次启动就执行这个文件中的所有命令一次。</p>
+<p>当然也可以直接用如下命令打开来编辑</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">notepad $profile</span><br></pre></td></tr></table></figure>
 
         </div>
       </div>

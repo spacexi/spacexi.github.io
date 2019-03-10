@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="SpaceXI">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="使用Python绘制漂亮的点线图2">
+  <meta property="og:description" content="">
+  <meta property="og:site_name" content="SpaceXI">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://spacexi.github.com">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>SpaceXI</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-dark.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">使用Python绘制漂亮的点线图2</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  主页
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  存档
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/archlinux/">
+                  
+                  ArchLinux
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/python/">
+                  
+                  Python
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/markdown/">
+                  
+                  Markdown
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/powershell/">
+                  
+                  Powershell
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container typo">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          
+            <!-- Author -->
+            <span class="author info">By SpaceXI</span>
+          
+          <!-- Date -->
+          <span class="date-time info">On
+            <span class="date">2019-03-10</span>
+            <span class="time">16:34:50</span>
+          </span>
+          
+        </div>
+        <!-- Tags -->
+        
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>设计一个简单的Pyhton模板来自动的绘制多条曲线呢。</p>
+<a id="more"></a>
+<h3 id="数据的载入"><a href="#数据的载入" class="headerlink" title="数据的载入"></a>数据的载入</h3><p>python3中的xlrd可以直接从xlsx中载入数据，这点在之前的<a href="https://spacexi.github.io/matplotlib-plot/" target="_blank" rel="noopener">帖子里</a>已经说过了。问题在于我们通常使用的数据图中都不止一条曲线，那么怎么让python自动读取多条曲线呢？</p>
+<p>实现的方法很简单，就是origin的解决办法，在第一行中加上表示x，y的标示，在第二行加上图例，就像这样：<br><img src="/matplotlib-plot-2/1.png" alt=""></p>
+<p>然后通过一个while循环，每次读取一列，如果是x则将前千行删掉后将非空数据写入xdata中，然后读取下一行，如果是y则读取图例后删掉前两行，将剩余的非空数据写入ydata，然后用x和y绘图就可以。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## open dada.xlsx and load data</span></span><br><span class="line">data=xlrd.open_workbook(<span class="string">"data.xlsx"</span>)</span><br><span class="line">sheet0=data.sheets()[<span class="number">0</span>]</span><br><span class="line">active_line=<span class="number">0</span></span><br><span class="line">linenumber=<span class="number">0</span></span><br><span class="line">line=[]</span><br><span class="line">legendtext=[]</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> active_line&lt;sheet0.ncols:</span><br><span class="line">    <span class="comment">## read x and remove void element</span></span><br><span class="line">    <span class="keyword">if</span> sheet0.col_values(active_line)[<span class="number">0</span>]==<span class="string">'x'</span>:</span><br><span class="line">        xdata=sheet0.col_values(active_line)</span><br><span class="line">        <span class="keyword">del</span> xdata[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">del</span> xdata[<span class="number">0</span>]</span><br><span class="line">        xdata=list(filter(<span class="keyword">None</span>, xdata))</span><br><span class="line">        <span class="comment">## read y and remove void</span></span><br><span class="line">    <span class="keyword">elif</span> sheet0.col_values(active_line)[<span class="number">0</span>]==<span class="string">'y'</span>:</span><br><span class="line">        ydata=sheet0.col_values(active_line)</span><br><span class="line">        <span class="keyword">if</span> sheet0.col_values(active_line)[<span class="number">1</span>]!=<span class="string">''</span>:</span><br><span class="line">            newlegendtext=sheet0.col_values(active_line)[<span class="number">1</span>]</span><br><span class="line">            legendtext.append(newlegendtext)</span><br><span class="line">        <span class="keyword">del</span> ydata[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">del</span> ydata[<span class="number">0</span>]</span><br><span class="line">        ydata=list(filter(<span class="keyword">None</span>, ydata))</span><br><span class="line">        <span class="comment">## plot y</span></span><br><span class="line">        newline,=plt.plot(xdata,ydata,linestyle=<span class="string">"--"</span>,color=autocolor(linenumber),marker=automarker(linenumber))</span><br><span class="line">        line.append(newline)</span><br><span class="line">        <span class="comment">## read y error</span></span><br><span class="line">        <span class="keyword">if</span> (active_line+<span class="number">1</span>&lt;sheet0.ncols):</span><br><span class="line">            <span class="keyword">if</span> sheet0.col_values(active_line+<span class="number">1</span>)[<span class="number">0</span>]==<span class="string">'Ey'</span>:</span><br><span class="line">                Eydata=sheet0.col_values(active_line+<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">del</span> Eydata[<span class="number">0</span>]</span><br><span class="line">                <span class="keyword">del</span> Eydata[<span class="number">0</span>]</span><br><span class="line">                Eydata=list(filter(<span class="keyword">None</span>, Eydata))</span><br><span class="line">                plt.errorbar(xdata,ydata,yerr=Eydata,fmt=<span class="string">'none'</span>,color=autocolor(linenumber),marker=automarker(linenumber),elinewidth=<span class="number">1</span>,capsize=<span class="number">4</span>)</span><br><span class="line">        linenumber+=<span class="number">1</span></span><br><span class="line">    active_line+=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>在加上控制绘图的程序和两个自动切换颜色和数据点类型的函数即可，全部代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Created on Sun Dec  2 20:01:32 2018</span></span><br><span class="line"><span class="string">@author: spacexi</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> xlrd</span><br><span class="line"></span><br><span class="line"><span class="comment">## autcolor and marker</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">autocolor</span><span class="params">(num)</span>:</span></span><br><span class="line">    color=[<span class="string">'navy'</span>,<span class="string">'darkgreen'</span>,<span class="string">'red'</span>,<span class="string">'darkmagenta'</span>,<span class="string">'chocolate'</span>,<span class="string">'teal'</span>,<span class="string">'darkslateblue'</span>]</span><br><span class="line">    <span class="keyword">if</span> num&gt;<span class="number">6</span>: num=num%<span class="number">7</span></span><br><span class="line">    <span class="keyword">return</span> color[num]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">automarker</span><span class="params">(num)</span>:</span></span><br><span class="line">    marker=[<span class="string">'o'</span>,<span class="string">'v'</span>,<span class="string">'s'</span>,<span class="string">'*'</span>,<span class="string">'^'</span>,<span class="string">'+'</span>,<span class="string">'3'</span>]</span><br><span class="line">    <span class="keyword">if</span> num&gt;<span class="number">6</span>: num=num%<span class="number">7</span></span><br><span class="line">    <span class="keyword">return</span> marker[num]</span><br><span class="line"></span><br><span class="line"><span class="comment">## open dada.xlsx and load data</span></span><br><span class="line">data=xlrd.open_workbook(<span class="string">"data.xlsx"</span>)</span><br><span class="line">sheet0=data.sheets()[<span class="number">0</span>]</span><br><span class="line">active_line=<span class="number">0</span></span><br><span class="line">linenumber=<span class="number">0</span></span><br><span class="line">line=[]</span><br><span class="line">legendtext=[]</span><br><span class="line"></span><br><span class="line"><span class="comment">## tick direction and figure size</span></span><br><span class="line">plt.rcParams[<span class="string">'figure.figsize'</span>]=(<span class="number">6</span>,<span class="number">6</span>)</span><br><span class="line">plt.rcParams[<span class="string">'xtick.direction'</span>]=<span class="string">'in'</span></span><br><span class="line">plt.rcParams[<span class="string">'ytick.direction'</span>]=<span class="string">'in'</span></span><br><span class="line">plt.rcParams[<span class="string">'savefig.dpi'</span>] = <span class="number">300</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## custom x and y lim</span></span><br><span class="line">xmin=<span class="number">0</span></span><br><span class="line">xmax=<span class="number">8</span></span><br><span class="line">xstep=<span class="number">1</span></span><br><span class="line">ymin=<span class="number">0</span></span><br><span class="line">ymax=<span class="number">90</span></span><br><span class="line">ystep=<span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> active_line&lt;sheet0.ncols:</span><br><span class="line">    <span class="comment">## read x and remove void element</span></span><br><span class="line">    <span class="keyword">if</span> sheet0.col_values(active_line)[<span class="number">0</span>]==<span class="string">'x'</span>:</span><br><span class="line">        xdata=sheet0.col_values(active_line)</span><br><span class="line">        <span class="keyword">del</span> xdata[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">del</span> xdata[<span class="number">0</span>]</span><br><span class="line">        xdata=list(filter(<span class="keyword">None</span>, xdata))</span><br><span class="line">        <span class="comment">## read y and remove void</span></span><br><span class="line">    <span class="keyword">elif</span> sheet0.col_values(active_line)[<span class="number">0</span>]==<span class="string">'y'</span>:</span><br><span class="line">        ydata=sheet0.col_values(active_line)</span><br><span class="line">        <span class="keyword">if</span> sheet0.col_values(active_line)[<span class="number">1</span>]!=<span class="string">''</span>:</span><br><span class="line">            newlegendtext=sheet0.col_values(active_line)[<span class="number">1</span>]</span><br><span class="line">            legendtext.append(newlegendtext)</span><br><span class="line">        <span class="keyword">del</span> ydata[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">del</span> ydata[<span class="number">0</span>]</span><br><span class="line">        ydata=list(filter(<span class="keyword">None</span>, ydata))</span><br><span class="line">        <span class="comment">## plot y</span></span><br><span class="line">        newline,=plt.plot(xdata,ydata,linestyle=<span class="string">"--"</span>,color=autocolor(linenumber),marker=automarker(linenumber))</span><br><span class="line">        line.append(newline)</span><br><span class="line">        <span class="comment">## read y error</span></span><br><span class="line">        <span class="keyword">if</span> (active_line+<span class="number">1</span>&lt;sheet0.ncols):</span><br><span class="line">            <span class="keyword">if</span> sheet0.col_values(active_line+<span class="number">1</span>)[<span class="number">0</span>]==<span class="string">'Ey'</span>:</span><br><span class="line">                Eydata=sheet0.col_values(active_line+<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">del</span> Eydata[<span class="number">0</span>]</span><br><span class="line">                <span class="keyword">del</span> Eydata[<span class="number">0</span>]</span><br><span class="line">                Eydata=list(filter(<span class="keyword">None</span>, Eydata))</span><br><span class="line">                plt.errorbar(xdata,ydata,yerr=Eydata,fmt=<span class="string">'none'</span>,color=autocolor(linenumber),marker=automarker(linenumber),elinewidth=<span class="number">1</span>,capsize=<span class="number">4</span>)</span><br><span class="line">        linenumber+=<span class="number">1</span></span><br><span class="line">    active_line+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## custom</span></span><br><span class="line">plt.xlim(xmin,xmax)</span><br><span class="line">plt.ylim(ymin,ymax)</span><br><span class="line">plt.xlabel(<span class="string">'x value'</span>,fontsize=<span class="number">16</span>)</span><br><span class="line">plt.ylabel(<span class="string">'y value'</span>,fontsize=<span class="number">16</span>)</span><br><span class="line">plt.axis([xmin,xmax,ymin,ymax])</span><br><span class="line">plt.xticks(list(range(xmin,xmax,xstep)),fontsize=<span class="number">14</span>)</span><br><span class="line">plt.yticks(list(range(ymin,ymax,ystep)),fontsize=<span class="number">14</span>)</span><br><span class="line">plt.legend(line,legendtext,loc = <span class="string">'upper left'</span>,fontsize=<span class="number">14</span>,edgecolor=<span class="string">'black'</span>)</span><br><span class="line"></span><br><span class="line">plt.savefig(<span class="string">"figure.png"</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>绘图结果还是挺漂亮的<br><img src="/matplotlib-plot-2/2.png" alt=""></p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        </p><p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
