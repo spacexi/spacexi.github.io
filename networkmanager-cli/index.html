@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="SpaceXI">
   <!-- Open Graph Data -->
-  <meta property="og:title" content="Hello_world">
+  <meta property="og:title" content="使用终端管理你的Network Manager">
   <meta property="og:description" content="">
   <meta property="og:site_name" content="SpaceXI">
   <meta property="og:type" content="article">
@@ -41,7 +41,7 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="page-title with-background-image">
-          <p class="title">Hello_world</p>
+          <p class="title">使用终端管理你的Network Manager</p>
           <p class="subtitle"></p>
         </div>
         <div class="site-menu with-background-image">
@@ -113,14 +113,14 @@
           
           <!-- Date -->
           <span class="date-time info">On
-            <span class="date">2018-11-22</span>
+            <span class="date">2019-03-10</span>
             <span class="time">15:49:30</span>
           </span>
           
           <!--  Categories  -->
             <span class="categories info">Under 
 
-<a href="/categories/博客/">博客</a>
+<a href="/categories/archlinux/">-archlinux</a>
 </span>
           
         </div>
@@ -129,20 +129,21 @@
           <div class="post-tags text-muted">
             Tags: 
 
-<a class="tag" href="/tags/博客/">#博客</a>
+<a class="tag" href="/tags/archlinux/">#archlinux</a> <a class="tag" href="/tags/xfce/">#xfce</a>
 
 
           </div>
         
         <!-- Post Main Content -->
         <div class="post-content">
-          <p>本来从2017年开始博客已经停止更新了，本地文件也都已经全部删除。但这一年多来总感觉少了点什么。越发感觉继续放下怕是很快就要堕落回计算机小白了，索性就捡起来之前的东西重新开始写博客吧。</p>
+          <p>很多xfce用户都会使用networkmanager来管理网络连接，毕竟GUI界面要比CUI的wifi-menu看起来方便一点。但有时候问题就来了，GUI下貌似没法删除已经记住的wifi名字？这时候又要回到CUI下来操作啦</p>
 <a id="more"></a>
-<h3 id="打算更新哪些内容"><a href="#打算更新哪些内容" class="headerlink" title="打算更新哪些内容"></a>打算更新哪些内容</h3><p>为了这个博客，新入手了一个小米Air12.5英寸版，绝大部分内容将会在该平台上完成。当然操作系统不会是万恶的windows，目前暂定的计划是全部基于Arch Linux。作为一个折腾为主的博客，计划以Arch Linux的配置和使用、Xfce4桌面环境、Hexo静态博客系统、python3、Gimp、Markdown等作为主要更新内容。核心宗旨是搭建一个基于Linux操作系统的数据分析-写作-发布平台。</p>
-<h3 id="可能会涉及到的内容"><a href="#可能会涉及到的内容" class="headerlink" title="可能会涉及到的内容"></a>可能会涉及到的内容</h3><p>既然使用了Linux作为唯一操作系统，那不可避免的会涉及到其他发行版的一些东西。此外既然使用了python3那么基于python的科学工具和数据分析可能偶尔也会涉及。还有一些个人感觉很不错的软件或者工具也会更新到博客上去。一些极端软件不可避免的要使用wine模拟器或者Virtualbox虚拟机，当然目前除了个别专业软件外唯一使用的就是QQ了。</p>
-<h3 id="不会涉及到的内容"><a href="#不会涉及到的内容" class="headerlink" title="不会涉及到的内容"></a>不会涉及到的内容</h3><p>想了很久要不要加入Matlab，后来还是放弃了。一是作为一个全部采用免费软件的平台，我不太希望引入Matlab这个收费的大坑；二是个人还是希望以Python作为matlab替代品来折腾。此外关于windows和MS office，这个我努力不会涉及。尽管我现在有两台电脑在运行windows10和office365，但都是作为办公平台在使用，不可能来回折腾。同样的原因，不会引入PS等win/mac平台专属软件。</p>
-<h3 id="更新频率"><a href="#更新频率" class="headerlink" title="更新频率"></a>更新频率</h3><p>随性而为，有空了手痒了就折腾一个，折腾完了就写个博客更新上去。</p>
-<p>嗯，就这样。</p>
+<p>关于Archlinux中使用NetworkManager管理网络链接的方法参见我的帖子：<a href="https://spacexi.github.io/xfce4-on-arch/" target="_blank" rel="noopener">Archlinux安装xfce4后的设置与美化</a></p>
+<p>Network Manager提供了CUI的操作界面，这个软件包叫做nmcli，通常是包含在Network Manager包中的。使用nmcli来删除不再需要的wifi配置文件只需要简单的几步：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli c</span><br></pre></td></tr></table></figure>
+<p>这个命令会显示Network Manager记住了几个wifi格式是这样的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">➜  spacexi.github.io nmcli c</span><br><span class="line">NAME            UUID                                  TYPE  DEVICE</span><br><span class="line">yifi-2          770a8e45-5027-4949-abcc-fcc7b4277a1e  wifi  wlp1s0</span><br><span class="line">AndroidAP_2012  6d0950c8-71b8-4e24-8e21-1638825cf480  wifi  --</span><br><span class="line">mi              c12386f8-6305-45de-b8af-ee12fa72c53e  wifi  --</span><br><span class="line">TP-LINK         7ec9c2d8-0502-43d7-aed4-3b565eef910e  wifi  --</span><br><span class="line">TP-LINK_7D1AEA  c632ab6c-872a-4c19-8d67-f5123355e789  wifi  --</span><br><span class="line">yifi            ad392f21-58b3-438e-a14f-accdb6100610  wifi  --</span><br></pre></td></tr></table></figure></p>
+<p>你只需要找到你要删除的wifi名字，然后复制下来后面的UUID，执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli c del UUID</span><br></pre></td></tr></table></figure></p>
+<p>好了，那个讨厌的wifi已经被Network Manager彻底忘记了</p>
 
         </div>
       </div>
